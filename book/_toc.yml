@@ -1,0 +1,17 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: get_started
+- file: gmdh_theory
+- file: gmdh_algorithms
+  sections:
+  - file: combi
+  - file: multi
+  - file: mia
+  - file: ria
+  - file: other_algorithms
+- file: criterions
+- file: example

@@ -126,7 +126,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="gmdh_algorithms.html">
-   Алгоритмы МГУА
+   Разновидности алгоритмов МГУА
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -163,7 +163,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="criterions.html">
-   Критерии
+   Внешние критерии
   </a>
  </li>
  <li class="toctree-l1">
@@ -392,6 +392,11 @@ title="Print to PDF"
    Базовый пример
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   Что дальше?
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -426,6 +431,11 @@ title="Print to PDF"
    Базовый пример
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   Что дальше?
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -442,7 +452,10 @@ title="Print to PDF"
 <h2>О модуле<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <p>Модуль <a class="reference external" href="https://test.pypi.org/project/gmdh/">gmdh</a> реализует 4 популярные разновидности алгоритмов из семейства метода группового учёта алгоритмов (COMBI, MULTI, MIA, RIA), предназначенные для решения задач аппроксимации данных и предсказания временных рядов. Также в состав библиотеки входит вспомогательный функционал для базовой преобработки данных и сохранения уже обученных моделей.</p>
 <p>Ядро модуля реализовано на языке С++, благодаря чему обеспечивается высокая производительность вычислений.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Поддерживаемые версии Python: 3.6 и выше.</p>
+</div>
 <p>Репозиторий проекта: <a class="reference external" href="https://github.com/bauman-team/GMDH">https://github.com/bauman-team/GMDH</a></p>
 </section>
 <section id="id3">
@@ -458,15 +471,98 @@ title="Print to PDF"
 </section>
 <section id="id4">
 <h2>Базовый пример<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h2>
-<p>Рассмотрим простейший пример использования базового комбинаторного алгоритма <em>COMBI</em> из модуля <code class="docutils literal notranslate"><span class="pre">gmdh</span></code>. Попробуем обучить модель для предсказания продолжения ряда чисел Фибоначчи.</p>
-<p>Для начала импортируем из модуля нужную модель и необходимые функции для подготовки данных.</p>
+<p>Рассмотрим простейший пример использования базового комбинаторного алгоритма <em>COMBI</em> из модуля <code class="docutils literal notranslate"><span class="pre">gmdh</span></code>.</p>
+<p>Для начала импортируем из модуля модель <code class="docutils literal notranslate"><span class="pre">Combi</span></code> и функцию <code class="docutils literal notranslate"><span class="pre">split_data</span></code> для разбиения исходных данных на тренировчную и тестовую выборки:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gmdh</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gmdh</span> <span class="kn">import</span> <span class="n">Combi</span><span class="p">,</span> <span class="n">split_data</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Создадим простой датасет, в котором целевые значения матрицы <code class="docutils literal notranslate"><span class="pre">y</span></code> будут являться просто суммой соответствующей пары значений <code class="docutils literal notranslate"><span class="pre">x1</span></code> и <code class="docutils literal notranslate"><span class="pre">x2</span></code> матрицы <code class="docutils literal notranslate"><span class="pre">X</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Разделим наши данные на тренировочную и тестовую выборки:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">split_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># выведем полученные массивы</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_train:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">x_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_test:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">y_train:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;y_test:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x_train:
+ [[1. 2.]
+ [3. 2.]
+ [7. 0.]
+ [5. 5.]
+ [1. 4.]]
+x_test:
+ [[2. 6.]]
+
+y_train:
+ [ 3.  5.  7. 10.  5.]
+y_test:
+ [8.]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Создадим модель <code class="docutils literal notranslate"><span class="pre">Combi</span></code>, обучим её на наших тренировочных данных методом <code class="docutils literal notranslate"><span class="pre">fit</span></code> и затем предскажем результат для тестовой выборки методом <code class="docutils literal notranslate"><span class="pre">predict</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Combi</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_predicted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+
+<span class="c1"># сравним прогноз с реальным значением</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;y_predicted: &#39;</span><span class="p">,</span> <span class="n">y_predicted</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;y_test: &#39;</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y_predicted:  [8.]
+y_test:  [8.]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Предсказанный результат совпал с реальным значением! Выведем теперь полином, отображающий найденную моделью закономерность:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">get_best_polynomial</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;y = x1 + x2&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>Что дальше?<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h2>
+<p>Возможности модуля намного шире, чем было продемонстрировано в примере выше:</p>
+<ul class="simple">
+<li><p>имеется поддержка работы с временными рядами;</p></li>
+<li><p>метод <code class="docutils literal notranslate"><span class="pre">fit</span></code> у всех алгоритмов позволяет гибко настраивать значения множества гиперпараметров, с помощью которых можно адаптировать обучение под конкретную задачу и добиться повышения точности результатов по сравнению с базовым вариантом обучения вида <code class="docutils literal notranslate"><span class="pre">fit(x_train,</span> <span class="pre">y_train)</span></code>;</p></li>
+<li><p>существуют специальные возможности для управления производительностью обучения моделей и визуализации процесса обучения;</p></li>
+<li><p>обученные модели можно сохранять для последующего использования без необходимости повторного обучения.</p></li>
+</ul>
 </section>
 </section>
 

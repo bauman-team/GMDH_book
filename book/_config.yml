@@ -2,7 +2,7 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: GMDH book
-author: Baryyshnikov Mikhail
+author: bauman-team
 logo: mylogo.png
 
 # Force re-execution of notebooks on each build.

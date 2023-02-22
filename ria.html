@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Другие алгоритмы" href="other_algorithms.html" />
@@ -167,8 +169,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="example.html">
-   Пример использования модуля
+  <a class="reference internal" href="module_description.html">
+   Обзор модуля
   </a>
  </li>
 </ul>
@@ -355,12 +357,41 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Этапы обучения
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Пример
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -372,6 +403,24 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Этапы обучения
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Пример
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -381,6 +430,107 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="ria">
 <h1>RIA<a class="headerlink" href="#ria" title="Permalink to this headline">#</a></h1>
+<p>Релаксационный итеративный алгоритм <code class="docutils literal notranslate"><span class="pre">Ria</span></code> является усовершенствованием многорядного итеративного алгоритма <code class="docutils literal notranslate"><span class="pre">Mia</span></code>. Он позволяет строить сложные нелинейные модели за счёт использования лучших моделей одного ряда в качестве новых переменных следующего ряда, а в основе генерации моделей-кандидатов лежит базовый полином <code class="docutils literal notranslate"><span class="pre">polynomial_type</span></code>, выбираемый до начала обучения. Отличие же данного алгоритма от <code class="docutils literal notranslate"><span class="pre">Mia</span></code> заключается в модифицированном способе формирования моделей-кандидатов нового уровня, благодаря которому ускоряется процесс обучения.</p>
+<p>Сначала на первом ряду рассматриваются все модели, соответствующие выбранному виду полинома. Начиная со второго ряда, метод продолжает строить новые модели в соответствии с заданным полиномом, но при этом в качестве переменных использует уже не только исходную выборку данных c <span class="math notranslate nohighlight">\(n\)</span> переменными, но и сами полиномы <code class="docutils literal notranslate"><span class="pre">k_best</span></code> лучших моделей предыдущего ряда. При этом модели-кандидаты формируются в виде базового полинома от двух переменных: одной переменной из исходного набора и одной новой переменной, представляющей собой полином модели предыдущего ряда.</p>
+<p>Возможные виды базовых полиномов <code class="docutils literal notranslate"><span class="pre">polynomial_type</span></code>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">LINEAR</span></code></p>
+<p><span class="math notranslate nohighlight">\(f(x_i, x_j)=w_0+w_1x_i+w_2x_j\)</span>;</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LINEAR_COV</span></code></p>
+<p><span class="math notranslate nohighlight">\(f(x_i, x_j)=w_0+w_1x_i+w_2x_j+w_{12}x_ix_j\)</span>;</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QUADRATIC</span></code></p>
+<p><span class="math notranslate nohighlight">\(f(x_i, x_j)=w_0+w_1x_i+w_2x_j+w_{12}x_ix_j+w_{11}x_i^2+w_{22}x_j^2\)</span>.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Подробнее об использовании полиномов написано в <a class="reference internal" href="mia.html#mia-note"><span class="std std-ref">примечании к Mia</span></a>.</p>
+</div>
+<section id="id1">
+<h2>Этапы обучения<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<hr class="docutils" />
+<p>На первом ряду перебираются все модели-кандидаты c выбранным базовым полиномом <span class="math notranslate nohighlight">\(f(x_i,x_j)\)</span> для каждой пары <span class="math notranslate nohighlight">\((x_i, x_j)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+y=f(x_i,x_j), \;\; i,j\in[1,n], \;\; j&gt;i.
+\]</div>
+<p>Методом наименьших квадратов (МНК) рассчитываются параметры <span class="math notranslate nohighlight">\(w\)</span> для каждой из моделей. После этого вычисляется заданный внешний критерий <code class="docutils literal notranslate"><span class="pre">criterion</span></code>, по значению которого модели сортируются в порядке возрастания. Затем отбирается <code class="docutils literal notranslate"><span class="pre">k_best</span></code> лучших моделей. А средняя величина внешнего критерия первых <code class="docutils literal notranslate"><span class="pre">p_average</span></code> моделей принимается за качество текущего ряда. Обозначим данную величину <span class="math notranslate nohighlight">\(E_1\)</span>.</p>
+<hr class="docutils" />
+<p>Далее алгоритм переходит на второй ряд и <code class="docutils literal notranslate"><span class="pre">k_best</span></code> лучших полиномов <span class="math notranslate nohighlight">\(y(x_i,x_j)\)</span> первого ряда становятся новыми переменными <span class="math notranslate nohighlight">\(y_1,...,y_{k\_best}\)</span> вдобавок к переменным <span class="math notranslate nohighlight">\(x_1,...x_n\)</span>. Затем к каждой паре <span class="math notranslate nohighlight">\((y_i,x_j)\)</span> применяется базовый полином <code class="docutils literal notranslate"><span class="pre">polynomial_type</span></code> для построения моделей-кандидатов вида</p>
+<div class="math notranslate nohighlight">
+\[
+z=f(y_i,x_j), \;\; i\in{[1,k\_best]}, \;\; j\in[1,n].
+\]</div>
+<p>Снова с помощью МНК вычисляются параметры <span class="math notranslate nohighlight">\(w\)</span> и затем для всех моделей-кандидатов второго ряда рассчитывается внешний критерий <code class="docutils literal notranslate"><span class="pre">criterion</span></code>. После сортировки значений критерия снова отбирается <code class="docutils literal notranslate"><span class="pre">k_best</span></code> лучших моделей, а качество второго ряда <span class="math notranslate nohighlight">\(E_2\)</span> определяется как средний результат <code class="docutils literal notranslate"><span class="pre">p_average</span></code> лучших моделей.</p>
+<hr class="docutils" />
+<p>Далее качество текущего ряда сравнивается с качеством предыдущего ряда:</p>
+<ul class="simple">
+<li><p>если <span class="math notranslate nohighlight">\(E_1\)</span> - <span class="math notranslate nohighlight">\(E_2\)</span> <span class="math notranslate nohighlight">\(\ge\)</span> <code class="docutils literal notranslate"><span class="pre">limit</span></code>, то качество моделей текущего ряда значительно улучшилось и алгоритм продолжит обучение, перейдя на третий ряд для перебора ещё более сложных моделей <span class="math notranslate nohighlight">\(f(z_i,x_j)\)</span>.</p></li>
+<li><p>если  <span class="math notranslate nohighlight">\(E_1\)</span> - <span class="math notranslate nohighlight">\(E_2\)</span> &lt; <code class="docutils literal notranslate"><span class="pre">limit</span></code>, то качество моделей улучшилось незначительно либо вовсе ухудшилось. В таком случае процесс обучения прекращается и моделью оптимальной сложности становится модель предыдущего ряда с наименьшим значением внешнего критерия.</p></li>
+</ul>
+<hr class="docutils" />
+<p>Максимально возможное число рядов для данного алгоритма равно не ограничено. Количество моделей-кандидатов на каждом ряду <span class="math notranslate nohighlight">\(i\)</span> равно</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M_i=
+\begin{cases}
+C_{n}^2, \; i=1\\
+k\_best\cdot n, \; i&gt;1
+\end{cases}
+\end{split}\]</div>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h2>Пример<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<p>Пусть имеется три признака <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span>, <span class="math notranslate nohighlight">\(x_3\)</span>, по которым нужно спрогнозировать значение <span class="math notranslate nohighlight">\(y\)</span>. Гиперпараметрам алгоритма зададим значения: <code class="docutils literal notranslate"><span class="pre">polynomial_type</span></code>=<code class="docutils literal notranslate"><span class="pre">Polynomial_type.QUADRATIC</span></code>, <code class="docutils literal notranslate"><span class="pre">k_best</span></code> <span class="math notranslate nohighlight">\(=2\)</span>, <code class="docutils literal notranslate"><span class="pre">p_average</span></code> <span class="math notranslate nohighlight">\(=2\)</span>, <code class="docutils literal notranslate"><span class="pre">limit</span></code> <span class="math notranslate nohighlight">\(=1\)</span>. Значения внешнего критерия модели обозначим через <span class="math notranslate nohighlight">\(e\)</span> (для простоты в данном примере значения <span class="math notranslate nohighlight">\(e\)</span> выбраны случайно).</p>
+<p><strong>На ряду №1 получим модели-кандидаты:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+y_1 = f(x_1, x_2)=w_0+w_1x_1+w_2x_2+w_{12}x_1x_2+w_{11}x_1^2+w_{22}x_2^2, \;\;\;\; e=10\\
+y_2 = f(x_1, x_3)=w_0+w_1x_1+w_2x_3+w_{12}x_1x_3+w_{11}x_1^2+w_{22}x_3^2, \;\;\;\; e=13\\
+y_3 = f(x_2, x_3)=w_0+w_1x_2+w_2x_3+w_{12}x_2x_3+w_{11}x_2^2+w_{22}x_3^2, \;\;\;\; e=12\\
+\end{split}\]</div>
+<p>Отбираем 2 лучшие модели: <span class="math notranslate nohighlight">\(y_1\)</span> и <span class="math notranslate nohighlight">\(y_3\)</span>.</p>
+<p>Качество первого ряда оцениваем по двум лучшим моделям: <span class="math notranslate nohighlight">\(E_1=\frac{10+12}{2}=11\)</span>.</p>
+<p><strong>На ряду №2 получим модели-кандидаты:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+z_1 = f(y_1, x_1)=w_0+w_1y_1+w_2x_1+w_{12}y_1x_1+w_{11}y_1^2+w_{22}x_1^2, \;\;\;\; e=9\\
+z_2 = f(y_1, x_2)=w_0+w_1y_1+w_2x_2+w_{12}y_1x_2+w_{11}y_1^2+w_{22}x_2^2, \;\;\;\; e=8\\
+z_3 = f(y_1, x_3)=w_0+w_1y_1+w_2x_3+w_{12}y_1x_3+w_{11}y_1^2+w_{22}x_3^2, \;\;\;\; e=8\\
+z_4 = f(y_3, x_1)=w_0+w_1y_3+w_2x_1+w_{12}y_3x_1+w_{11}y_3^2+w_{22}x_1^2, \;\;\;\; e=7\\
+z_5 = f(y_3, x_2)=w_0+w_1y_3+w_2x_2+w_{12}y_3x_2+w_{11}y_3^2+w_{22}x_2^2, \;\;\;\; e=9\\
+z_6 = f(y_3, x_3)=w_0+w_1y_3+w_2x_3+w_{12}y_3x_3+w_{11}y_3^2+w_{22}x_3^2, \;\;\;\; e=6\\
+\end{split}\]</div>
+<p>Отбираем 2 лучшие модели: <span class="math notranslate nohighlight">\(z_6\)</span> и <span class="math notranslate nohighlight">\(z_4\)</span>.</p>
+<p>Качество второго ряда оцениваем по двум лучшим моделям: <span class="math notranslate nohighlight">\(E_2=\frac{6+7}{2}=6,5\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(E_1-E_2=4,5\ge{1}\)</span>, значит качество второго ряда значительно лучше первого и нужно продолжить обучение.</p>
+<p><strong>На ряду №3 получим модели-кандидаты:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+g_1 = f(z_6, x_1)=w_0+w_1z_6+w_2x_1+w_{12}z_6x_1+w_{11}z_6^2+w_{22}x_1^2, \;\;\;\; e=7\\
+g_2 = f(z_6, x_2)=w_0+w_1z_6+w_2x_2+w_{12}z_6x_2+w_{11}z_6^2+w_{22}x_2^2, \;\;\;\; e=7\\
+g_3 = f(z_6, x_3)=w_0+w_1z_6+w_2x_3+w_{12}z_6x_3+w_{11}z_6^2+w_{22}x_3^2, \;\;\;\; e=9\\
+g_4 = f(z_4, x_1)=w_0+w_1z_4+w_2x_1+w_{12}z_4x_1+w_{11}z_4^2+w_{22}x_1^2, \;\;\;\; e=8\\
+g_5 = f(z_4, x_2)=w_0+w_1z_4+w_2x_2+w_{12}z_4x_2+w_{11}z_4^2+w_{22}x_2^2, \;\;\;\; e=8\\
+g_6 = f(z_4, x_3)=w_0+w_1z_4+w_2x_3+w_{12}z_4x_3+w_{11}z_4^2+w_{22}x_3^2, \;\;\;\; e=9\\
+\end{split}\]</div>
+<p>Отбираем 2 лучшие модели: <span class="math notranslate nohighlight">\(g_1\)</span> и <span class="math notranslate nohighlight">\(g_2\)</span>.</p>
+<p>Качество третьего ряда оцениваем по двум лучшим моделям: <span class="math notranslate nohighlight">\(E_3=\frac{7+7}{2}=7\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(E_2-E_3=-0,5&lt;1\)</span>, следовательно качество ряда ухудшилось. Обучение заканчивается.</p>
+<p><strong>Оптимальной моделью становится лучшая модель предыдущего ряда:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+z_6 = f(y_3, x_3)=w_0+w_1y_3+w_2x_3+w_{12}y_3x_3+w_{11}y_3^2+w_{22}x_3^2,,
+\]</div>
+<p>где</p>
+<div class="math notranslate nohighlight">
+\[
+y_3 = f(x_2, x_3)=w_0+w_1x_2+w_2x_3+w_{12}x_2x_3+w_{11}x_2^2+w_{22}x_3^2.
+\]</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -431,7 +581,7 @@ title="Print to PDF"
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Baryyshnikov Mikhail<br/>
+    By bauman-team<br/>
   
       &copy; Copyright 2022.<br/>
 </p>

@@ -50,9 +50,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Пример использования модуля" href="example.html" />
+    <link rel="next" title="Обзор модуля" href="module_description.html" />
     <link rel="prev" title="Другие алгоритмы" href="other_algorithms.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -167,8 +169,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="example.html">
-   Пример использования модуля
+  <a class="reference internal" href="module_description.html">
+   Обзор модуля
   </a>
  </li>
 </ul>
@@ -326,12 +328,97 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Классификация внешних критериев
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   Обзор индивидуальных критериев
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     1. Критерий регулярности
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     2. Критерий стабильности
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     3. Критерий минимума смещения коэффициентов
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     4. Критерий минимума смещения решений
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     5. Абсолютно помехоустойчивый критерий
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   Обзор комбинированных критериев
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parallelcriterion">
+     1. Параллельный критерий (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ParallelCriterion
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sequentialcriterion">
+     2. Последовательный критерий (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       SequentialCriterion
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -343,6 +430,80 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Классификация внешних критериев
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   Обзор индивидуальных критериев
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     1. Критерий регулярности
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     2. Критерий стабильности
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     3. Критерий минимума смещения коэффициентов
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     4. Критерий минимума смещения решений
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     5. Абсолютно помехоустойчивый критерий
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   Обзор комбинированных критериев
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parallelcriterion">
+     1. Параллельный критерий (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ParallelCriterion
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sequentialcriterion">
+     2. Последовательный критерий (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       SequentialCriterion
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -352,6 +513,204 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>Внешние критерии<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h1>
+<p>Внешние критерии являются механизмами оценки качества моделей-кандидатов. Внешние критерии представляет собой формулы расчёта метрики - числового значения, которое характеризует то, насколько хорошо выбранная модель справляется со своей задачей. Значением метрики всегда является неотрицательное число. Чем меньше величина внешнего критерия, тем качественнее модель.</p>
+<p>Однако каждая метрика помимо простого вычисления метрики по заданной формуле определяет также и способ использования <a class="reference internal" href="gmdh_theory.html#subsamples"><span class="std std-ref">тренировочной и тестовой подвыборок</span></a>.</p>
+<section id="id2">
+<h2>Классификация внешних критериев<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<p>Все внешние критерии можно разделить на две большие категории: индивидуальные и комбинированные. Индивидуальные критерии используют один конкретный метод оценивая качества модели. Комбинированные критерии образуются путём одноременного либо поочерёдного использования двух независимых индивидуальных критериев.</p>
+<p>Кроме того, многие индивидуальные критерии имеют две формы: симметричную и несимметричную. Особенность симметричных критериев в том, что тренировочную и тестовую подвыборки они используют равноправно. Тогда как в несимметричных критериях тренировочная и тестовая подвыборки служат разным целям.</p>
+<p>Классификация внешних критериев представлена на рисунке 1.</p>
+<p><img alt="" src="_images/classification.png" /></p>
+<center>Рисунок 1. "Классификация внешних критериев"</center>
+</section>
+<section id="id3">
+<h2>Обзор индивидуальных критериев<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
+<p>Индивидуальные критерии бывают двух видов: критерии точности и критерии согласованности. Критерии точности оценивают <em>ошибку</em> модели на определённых подвыборках. Критерии согласованности определяют <em>близость оценок</em> модели на разных подвыборках, но при этом не учитывают в явном виде ошибки моделей.</p>
+<p>Далее при описании внешних критериев будут использоваться следующие обозначения:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A\)</span> - тренировочная выборка;</p></li>
+<li><p><span class="math notranslate nohighlight">\(B\)</span> - тестовая выборка;</p></li>
+<li><p><span class="math notranslate nohighlight">\(C\)</span> - обучающая выборка, равная <span class="math notranslate nohighlight">\(A\cup{B}\)</span>;</p></li>
+</ul>
+<!--<br><br>
+- $N_A$ - размер тренировочной выборки $A$;
+- $N_B$ - размер тестовой выборки $B$;
+- $N_C$ - размер обучающей выборки $C$, равный $N_A$+$N_B$;
+<br><br>-->
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X_A\)</span> - матрица входных данных тренировочной выборки <span class="math notranslate nohighlight">\(A\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_B\)</span> - матрица входных данных тестовой выборки <span class="math notranslate nohighlight">\(B\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_C\)</span> - матрица входных данных обучающей выборки <span class="math notranslate nohighlight">\(C\)</span>, равная <span class="math notranslate nohighlight">\(X_A\cup{X_B}\)</span>;
+<br><br></p></li>
+<li><p><span class="math notranslate nohighlight">\(y_A\)</span> - вектор целевой величины тренировочной выборки <span class="math notranslate nohighlight">\(A\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_B\)</span> - вектор целевой величины тестовой выборки <span class="math notranslate nohighlight">\(B\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_C\)</span> - вектор целевой величины обучающей выборки <span class="math notranslate nohighlight">\(C\)</span>, равный <span class="math notranslate nohighlight">\(y_A\cup{y_B}\)</span>;
+<br><br></p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{w}_A\)</span> - вектор параметров модели, обученной на тренировочной выборке <span class="math notranslate nohighlight">\(A\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{w}_B\)</span> - вектор параметров модели, обученной на тестовой выборке <span class="math notranslate nohighlight">\(B\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{w}_C\)</span> - вектор параметров модели, обученной на обучающей выборке <span class="math notranslate nohighlight">\(C\)</span>;
+<br><br></p></li>
+<li><p><span class="math notranslate nohighlight">\(E\)</span> - значение внешнего критерия.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Выражение <span class="math notranslate nohighlight">\(||x||\)</span> означает норму вектора евклидова пространства и вычисляется по формуле</p>
+<div class="math notranslate nohighlight">
+\[||x||=\sqrt{\sum_{i=1}^nx_i^2}\]</div>
+</div>
+<section id="id4">
+<h3>1. Критерий регулярности<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<p>Критерий регулярности относится к критериям точности и представляет собой среднеквадратичную ошибку.</p>
+<ul>
+<li><p>Несимметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.REGULARITY</span></code>):<br><br></p>
+  <!--$$
+  E=\sum_{i=1}^{N_B}(y_{Bi}-X_{Bi}\hat{w}_A)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||y_{B}-X_{B}\hat{w}_A||^2
+    \]</div>
+<p>Ошибка вычисляется для выборки <span class="math notranslate nohighlight">\(B\)</span> для модели, обученной на выборке <span class="math notranslate nohighlight">\(A\)</span>.
+<br><br></p>
+</li>
+<li><p>Симметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.SYM_REGULARITY</span></code>):<br><br></p>
+  <!--$$
+  E=\sum_{i=1}^{N_B}(y_{Bi}-X_{Bi}\hat{w}_A)^2 + \sum_{i=1}^{N_A}(y_{Ai}-X_{Ai}\hat{w}_B)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||y_{B}-X_{B}\hat{w}_A||^2+||y_{A}-X_{A}\hat{w}_B||^2
+    \]</div>
+<p>Используются сразу две модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span> и делает прогнозы на выборке <span class="math notranslate nohighlight">\(B\)</span>.
+Вторая модель, наоборот, обучается на выборке <span class="math notranslate nohighlight">\(B\)</span> и делает прогнозы на выборке <span class="math notranslate nohighlight">\(A\)</span>.
+Итоговый результат складывается из суммы среднеквадратичных ошибок двух моделей.</p>
+</li>
+</ul>
+</section>
+<section id="id5">
+<h3>2. Критерий стабильности<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+<p>Критерий стабильности относится к критериям точности и отличается от критерия регулярности тем, что оценивает точность модели не только на новых данных, но и на тех, на которых она обучалась.
+Благодаря этому оценка учитывает способности как аппроксимации, так и экстраполяции данных.</p>
+<ul>
+<li><p>Несимметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.STABILITY</span></code>):<br><br></p>
+  <!--$$
+  E=\sum_{i=1}^{N_C}(y_{Ci}-X_{Ci}\hat{w}_A)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||y_{C}-X_{C}\hat{w}_A||^2
+    \]</div>
+<p>Ошибка вычисляется для выборки <span class="math notranslate nohighlight">\(C\)</span> для модели, обученной на выборке <span class="math notranslate nohighlight">\(A\)</span>.
+<br><br></p>
+</li>
+<li><p>Симметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.SYM_STABILITY</span></code>):<br><br></p>
+  <!--$$
+  E=\sum_{i=1}^{N_C}(y_{Ci}-X_{Ci}\hat{w}_A)^2 + \sum_{i=1}^{N_C}(y_{Ci}-X_{Ci}\hat{w}_B)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||y_{C}-X_{C}\hat{w}_A||^2 + ||y_{C}-X_{C}\hat{w}_B||^2
+    \]</div>
+<p>Используются сразу две модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span> и делает прогнозы на выборке <span class="math notranslate nohighlight">\(C\)</span>.
+Вторая модель обучается на выборке <span class="math notranslate nohighlight">\(B\)</span> и делает прогнозы также на выборке <span class="math notranslate nohighlight">\(C\)</span>.
+Итоговый результат складывается из суммы среднеквадратичных ошибок двух моделей.</p>
+</li>
+</ul>
+</section>
+<section id="id6">
+<h3>3. Критерий минимума смещения коэффициентов<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
+<p>Критерий минимума смещения коэффициентов относится к критериям согласованности и имеет только симметричную форму.
+Он основан на идее о том, что лучшей моделью является та, параметры которой практически не отличаются вне зависимости от данных, на которых модель обучалась.</p>
+<ul>
+<li><p>Симметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.UNBIASED_COEFFS</span></code>):<br><br></p>
+  <!--$$
+  E=(\hat{w}_A-\hat{w}_B)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||\hat{w}_A-\hat{w}_B||^2
+    \]</div>
+<p>Используются сразу две модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span>, другая - на выборке <span class="math notranslate nohighlight">\(B\)</span>.
+Чем более схожими получатся параметры моделей, тем меньше будет значение критерия.</p>
+</li>
+</ul>
+</section>
+<section id="id7">
+<h3>4. Критерий минимума смещения решений<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h3>
+<p>Критерий минимума смещения решений относится к критериям согласованности и является более распространённой формой критерия минимума смещения коэффициентов.
+Он оценивает то, насколько похожими будут прогнозы модели, обученной на двух разных выборках.</p>
+<ul>
+<li><p>Несимметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.UNBIASED_OUTPUTS</span></code>):<br><br></p>
+  <!--$$
+  E=(X_{Bi}\hat{w}_A-X_{Bi}\hat{w}_B)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||X_{B}\hat{w}_A-X_{B}\hat{w}_B||^2
+    \]</div>
+<p>Используются сразу две модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span> и строит прогнозы для выборки <span class="math notranslate nohighlight">\(B\)</span>.
+Вторая модель обучается на выборке <span class="math notranslate nohighlight">\(B\)</span> и строит прогнозы для выборки <span class="math notranslate nohighlight">\(B\)</span>.
+Чем более схожими получатся два этих прогноза, тем меньше будет значение критерия.
+<br><br></p>
+</li>
+<li><p>Симметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.SYM_UNBIASED_OUTPUTS</span></code>):<br><br></p>
+  <!--$$
+  E=(X_{Ci}\hat{w}_A-X_{Ci}\hat{w}_B)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||X_{C}\hat{w}_A-X_{C}\hat{w}_B||^2
+    \]</div>
+<p>Используются сразу две модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span> и строит прогнозы для выборки <span class="math notranslate nohighlight">\(C\)</span>.
+Вторая модель обучается на выборке <span class="math notranslate nohighlight">\(B\)</span> и строит прогнозы для выборки <span class="math notranslate nohighlight">\(C\)</span>.
+Чем более схожими получатся два этих прогноза, тем меньше будет значение критерия.</p>
+</li>
+</ul>
+</section>
+<section id="id8">
+<h3>5. Абсолютно помехоустойчивый критерий<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
+<p>Абсолютно помехоустойчивый критерий требует максимальную согласованность прогнозов модели, раздельно обученной на трёх выборках. Данный критерий теоретически лучше остальных отсеивает избыточно сложные модели.</p>
+<ul>
+<li><p>Несимметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.ABSOLUTE_NOISE_IMMUNITY</span></code>):<br><br></p>
+<div class="math notranslate nohighlight">
+\[
+    E=(X_B\hat{w}_C-X_B\hat{w}_A)^T(X_B\hat{w}_B-X_B\hat{w}_C)
+    \]</div>
+<p>Ипользуются сразу три модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span>, вторая - на выборке <span class="math notranslate nohighlight">\(B\)</span>, третья - на выборке <span class="math notranslate nohighlight">\(C\)</span>.
+Все модели строят прогнозы для выборки <span class="math notranslate nohighlight">\(B\)</span>. Чем более схожими будут прогнозы, тем меньше будет значение критерия.
+<br><br></p>
+</li>
+<li><p>Симметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.SYM_ABSOLUTE_NOISE_IMMUNITY</span></code>):<br><br></p>
+<div class="math notranslate nohighlight">
+\[
+    E=(X_C\hat{w}_C-X_C\hat{w}_A)^T(X_C\hat{w}_B-X_C\hat{w}_C)
+    \]</div>
+<p>Ипользуются сразу три модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span>, вторая - на выборке <span class="math notranslate nohighlight">\(B\)</span>, третья - на выборке <span class="math notranslate nohighlight">\(C\)</span>.
+Все модели строят прогнозы для выборки <span class="math notranslate nohighlight">\(C\)</span>. Чем более схожими будут прогнозы, тем меньше будет значение критерия.</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="id9">
+<h2>Обзор комбинированных критериев<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h2>
+<section id="parallelcriterion">
+<h3>1. Параллельный критерий (<code class="docutils literal notranslate"><span class="pre">ParallelCriterion</span></code>)<a class="headerlink" href="#parallelcriterion" title="Permalink to this headline">#</a></h3>
+<p>Параллельный критерий представляет собой взвешенную сумму значений двух независимо рассчитанных индивидуальных критериев и рассчитывается по формуле:</p>
+<div class="math notranslate nohighlight">
+\[
+E=\alpha E_1+(1-\alpha)E_2, \;\;\; \alpha \in [0,1],\]</div>
+<p>где <span class="math notranslate nohighlight">\(E_1\)</span> - значение первого индивидуального критерия,
+<span class="math notranslate nohighlight">\(E_2\)</span> - значение второго индивидуального  критерия,
+<span class="math notranslate nohighlight">\(\alpha\)</span> - весовой коэффициент.</p>
+</section>
+<section id="sequentialcriterion">
+<h3>2. Последовательный критерий (<code class="docutils literal notranslate"><span class="pre">SequentialCriterion</span></code>)<a class="headerlink" href="#sequentialcriterion" title="Permalink to this headline">#</a></h3>
+<p>Последовательный критерий также состоит из двух индивидуальных внешних критериев.
+Первый критерий применяется для всех моделей-кандидатов текущего ряда.
+Из них отбирается подмножество из <code class="docutils literal notranslate"><span class="pre">top</span></code> лучших моделей и для них рассчитывается второй индивидуальный критерий,
+по значению которого окончательно определяются лучшие модели.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -388,10 +747,10 @@ title="Print to PDF"
             <p class="prev-next-title">Другие алгоритмы</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="example.html" title="next page">
+    <a class='right-next' id="next-link" href="module_description.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Пример использования модуля</p>
+        <p class="prev-next-title">Обзор модуля</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -402,7 +761,7 @@ title="Print to PDF"
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Baryyshnikov Mikhail<br/>
+    By bauman-team<br/>
   
       &copy; Copyright 2022.<br/>
 </p>

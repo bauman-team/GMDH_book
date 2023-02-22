@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="MULTI" href="multi.html" />
@@ -167,8 +169,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="example.html">
-   Пример использования модуля
+  <a class="reference internal" href="module_description.html">
+   Обзор модуля
   </a>
  </li>
 </ul>
@@ -355,12 +357,41 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Этапы обучения
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Пример
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -372,6 +403,24 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Этапы обучения
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Пример
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -381,6 +430,69 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="combi">
 <h1>COMBI<a class="headerlink" href="#combi" title="Permalink to this headline">#</a></h1>
+<p>Комбинаторный алгоритм <code class="docutils literal notranslate"><span class="pre">Combi</span></code> является базовым алгоритмом МГУА. Он рассматривает только линейные модели, то есть выражает зависимость целевой величины <span class="math notranslate nohighlight">\(y\)</span> в виде линейной комбинации переменных <span class="math notranslate nohighlight">\(x_1,...,x_n\)</span>.</p>
+<section id="id1">
+<h2>Этапы обучения<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<hr class="docutils" />
+<p>На первом ряду перебираются все модели-кандидаты вида</p>
+<div class="math notranslate nohighlight">
+\[
+y(x_i)=w_0+w_ix_i, \;\; i\in[1,n].
+\]</div>
+<p>Методом наименьших квадратов (МНК) рассчитывается параметр <span class="math notranslate nohighlight">\(w_i\)</span> для каждой из моделей. После этого вычисляется заданный внешний критерий <code class="docutils literal notranslate"><span class="pre">criterion</span></code>, по значению которого модели сортируются в порядке возрастания. Средняя величина внешнего критерия первых <code class="docutils literal notranslate"><span class="pre">p_average</span></code> моделей принимается за качество текущего ряда. Обозначим данную величину <span class="math notranslate nohighlight">\(E_1\)</span>.</p>
+<hr class="docutils" />
+<p>Далее алгоритм переходит на второй ряд и новые модели-кандидаты усложняются до вида</p>
+<div class="math notranslate nohighlight">
+\[
+y(x_i, x_j)=w_0+w_ix_i+w_jx_j, \;\; i,j\in[1,n], \;\; j&gt;i.
+\]</div>
+<p>Снова с помощью МНК вычисляются параметры <span class="math notranslate nohighlight">\(w_i\)</span> и <span class="math notranslate nohighlight">\(w_j\)</span> и затем для всех моделей-кандидатов второго ряда рассчитывается внешний критерий <code class="docutils literal notranslate"><span class="pre">criterion</span></code>. После сортировки значений критерия определяется качество второго ряда <span class="math notranslate nohighlight">\(E_2\)</span> как среднего результата <code class="docutils literal notranslate"><span class="pre">p_average</span></code> лучших моделей.</p>
+<hr class="docutils" />
+<p>Далее качество текущего ряда сравнивается с качеством предыдущего ряда:</p>
+<ul class="simple">
+<li><p>если <span class="math notranslate nohighlight">\(E_1\)</span> - <span class="math notranslate nohighlight">\(E_2\)</span> <span class="math notranslate nohighlight">\(\ge\)</span> <code class="docutils literal notranslate"><span class="pre">limit</span></code>, то качество моделей текущего ряда значительно улучшилось и алгоритм продолжит обучение, перейдя на третий ряд для перебора ещё более сложных моделей <span class="math notranslate nohighlight">\(y(x_i, x_j, x_k)\)</span>.</p></li>
+<li><p>если  <span class="math notranslate nohighlight">\(E_1\)</span> - <span class="math notranslate nohighlight">\(E_2\)</span> &lt; <code class="docutils literal notranslate"><span class="pre">limit</span></code>, то качество моделей улучшилось незначительно либо вовсе ухудшилось. В таком случае процесс обучения прекращается и моделью оптимальной сложности становится модель предыдущего ряда с наименьшим значением внешнего критерия.</p></li>
+</ul>
+<hr class="docutils" />
+<p>Максимально возможное число рядов для данного алгоритма равно <span class="math notranslate nohighlight">\(n\)</span>. Количество моделей-кандидатов на каждом ряду <span class="math notranslate nohighlight">\(i\)</span> равно <span class="math notranslate nohighlight">\(M_i=C_n^i\)</span>. Общее максимальное количество моделей-кандидатов на всех рядах равно <span class="math notranslate nohighlight">\(M=\sum_{i=1}^nC_n^i=2^n-1\)</span>.</p>
+<hr class="docutils" />
+<!--:::{admonition} Example-->
+</section>
+<section id="id2">
+<h2>Пример<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<p>Пусть имеется три признака <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span>, <span class="math notranslate nohighlight">\(x_3\)</span>, по которым нужно спрогнозировать значение <span class="math notranslate nohighlight">\(y\)</span>. Гиперпараметрам алгоритма зададим значения: <code class="docutils literal notranslate"><span class="pre">p_average</span></code> <span class="math notranslate nohighlight">\(=2\)</span>, <code class="docutils literal notranslate"><span class="pre">limit</span></code> <span class="math notranslate nohighlight">\(=1\)</span>. Значения внешнего критерия модели обозначим через <span class="math notranslate nohighlight">\(e\)</span> (для простоты в данном примере значения <span class="math notranslate nohighlight">\(e\)</span> выбраны случайно).</p>
+<p><strong>На ряду №1 получим модели-кандидаты:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+y(x_1)=w_0+w_1x_1, \;\;\;\; e=10\\
+y(x_2)=w_0+w_2x_2, \;\;\;\; e=14\\
+y(x_3)=w_0+w_3x_3, \;\;\;\; e=20\\
+\end{split}\]</div>
+<p>Отбираем 2 лучшие модели: <span class="math notranslate nohighlight">\(y(x_1)\)</span> и <span class="math notranslate nohighlight">\(y(x_2)\)</span>.</p>
+<p>Тогда качество первого ряда равно <span class="math notranslate nohighlight">\(E_1=\frac{10+14}{2}=12\)</span>.</p>
+<p><strong>На ряду №2 получим модели-кандидаты:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+y(x_1,x_2)=w_0+w_1x_1+w_2x_2, \;\;\;\; e=8\\
+y(x_1,x_3)=w_0+w_1x_1+w_3x_3, \;\;\;\; e=9\\
+y(x_2,x_3)=w_0+w_2x_2+w_3x_3, \;\;\;\; e=4\\
+\end{split}\]</div>
+<p>Отбираем 2 лучшие модели: <span class="math notranslate nohighlight">\(y(x_1,x_3)\)</span> и <span class="math notranslate nohighlight">\(y(x_1,x_2)\)</span>.</p>
+<p>Тогда качество второго ряда равно <span class="math notranslate nohighlight">\(E_2=\frac{4+18}{2}=6\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(E_1-E_2=6\ge{1}\)</span>, значит качество второго ряда значительно лучше первого и нужно продолжить обучение.</p>
+<p><strong>На ряду №3 получим одну модель-кандидат:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+y(x_1,x_2,x_3)=w_0+w_1x_1+w_2x_2+w_3x_3, \;\;\;\; e=5.5\\
+\end{split}\]</div>
+<p>Так как модель только одна, качество третьего ряда будет равно значению внешнего критерия единственной модели, то есть <span class="math notranslate nohighlight">\(E_3=5.5\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(E_1-E_2=0.5&lt;1\)</span>, следовательно качество ряда улучшилось незначительно. Обучение заканчивается.</p>
+<p><strong>Оптимальной моделью становится лучшая модель предыдущего ряда:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+y(x_2,x_3)=w_0+w_2x_2+w_3x_3.
+\]</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -431,7 +543,7 @@ title="Print to PDF"
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Baryyshnikov Mikhail<br/>
+    By bauman-team<br/>
   
       &copy; Copyright 2022.<br/>
 </p>

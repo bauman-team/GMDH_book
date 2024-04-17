@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Внешние критерии &#8212; GMDH book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'criterions';</script>
+    <link rel="icon" href="_static/mylogo.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Обзор модуля" href="module_description.html" />
+    <link rel="prev" title="Другие алгоритмы" href="other_algorithms.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/mylogo.png" class="logo__image only-light" alt="GMDH book - Home"/>
+    <script>document.write(`<img src="_static/mylogo.png" class="logo__image only-dark" alt="GMDH book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Введение
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Первые шаги</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gmdh_theory.html">Теория МГУА</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="gmdh_algorithms.html">Разновидности алгоритмов МГУА</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="combi.html">COMBI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi.html">MULTI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mia.html">MIA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ria.html">RIA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_algorithms.html">Другие алгоритмы</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Внешние критерии</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_description.html">Обзор модуля</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcriterions.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/criterions.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Внешние критерии</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Классификация внешних критериев</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Обзор индивидуальных критериев</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1. Критерий регулярности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2. Критерий стабильности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3. Критерий минимума смещения коэффициентов</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4. Критерий минимума смещения решений</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">5. Абсолютно помехоустойчивый критерий</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Обзор комбинированных критериев</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelcriterion">1. Параллельный критерий (<code class="docutils literal notranslate"><span class="pre">ParallelCriterion</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequentialcriterion">2. Последовательный критерий (<code class="docutils literal notranslate"><span class="pre">SequentialCriterion</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Внешние критерии<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>Внешние критерии являются механизмами оценки качества моделей-кандидатов. Внешние критерии представляет собой формулы расчёта метрики - числового значения, которое характеризует то, насколько хорошо выбранная модель справляется со своей задачей. Значением метрики всегда является неотрицательное число. Чем меньше величина внешнего критерия, тем качественнее модель.</p>
+<p>Однако каждая метрика помимо простого вычисления метрики по заданной формуле определяет также и способ использования <a class="reference internal" href="gmdh_theory.html#subsamples"><span class="std std-ref">тренировочной и тестовой подвыборок</span></a>.</p>
+<section id="id2">
+<h2>Классификация внешних критериев<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Все внешние критерии можно разделить на две большие категории: индивидуальные и комбинированные. Индивидуальные критерии используют один конкретный метод оценивая качества модели. Комбинированные критерии образуются путём одноременного либо поочерёдного использования двух независимых индивидуальных критериев.</p>
+<p>Кроме того, многие индивидуальные критерии имеют две формы: симметричную и несимметричную. Особенность симметричных критериев в том, что тренировочную и тестовую подвыборки они используют равноправно. Тогда как в несимметричных критериях тренировочная и тестовая подвыборки служат разным целям.</p>
+<p>Классификация внешних критериев представлена на рисунке 1.</p>
+<p><img alt="" src="_images/classification.png" /></p>
+<center>Рисунок 1. "Классификация внешних критериев"</center>
+</section>
+<section id="id3">
+<h2>Обзор индивидуальных критериев<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Индивидуальные критерии бывают двух видов: критерии точности и критерии согласованности. Критерии точности оценивают <em>ошибку</em> модели на определённых подвыборках. Критерии согласованности определяют <em>близость оценок</em> модели на разных подвыборках, но при этом не учитывают в явном виде ошибки моделей.</p>
+<p>Далее при описании внешних критериев будут использоваться следующие обозначения:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A\)</span> - тренировочная выборка;</p></li>
+<li><p><span class="math notranslate nohighlight">\(B\)</span> - тестовая выборка;</p></li>
+<li><p><span class="math notranslate nohighlight">\(C\)</span> - обучающая выборка, равная <span class="math notranslate nohighlight">\(A\cup{B}\)</span>;</p></li>
+</ul>
+<!--<br><br>
+- $N_A$ - размер тренировочной выборки $A$;
+- $N_B$ - размер тестовой выборки $B$;
+- $N_C$ - размер обучающей выборки $C$, равный $N_A$+$N_B$;
+<br><br>-->
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X_A\)</span> - матрица входных данных тренировочной выборки <span class="math notranslate nohighlight">\(A\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_B\)</span> - матрица входных данных тестовой выборки <span class="math notranslate nohighlight">\(B\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_C\)</span> - матрица входных данных обучающей выборки <span class="math notranslate nohighlight">\(C\)</span>, равная <span class="math notranslate nohighlight">\(X_A\cup{X_B}\)</span>;
+<br><br></p></li>
+<li><p><span class="math notranslate nohighlight">\(y_A\)</span> - вектор целевой величины тренировочной выборки <span class="math notranslate nohighlight">\(A\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_B\)</span> - вектор целевой величины тестовой выборки <span class="math notranslate nohighlight">\(B\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_C\)</span> - вектор целевой величины обучающей выборки <span class="math notranslate nohighlight">\(C\)</span>, равный <span class="math notranslate nohighlight">\(y_A\cup{y_B}\)</span>;
+<br><br></p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{w}_A\)</span> - вектор параметров модели, обученной на тренировочной выборке <span class="math notranslate nohighlight">\(A\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{w}_B\)</span> - вектор параметров модели, обученной на тестовой выборке <span class="math notranslate nohighlight">\(B\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{w}_C\)</span> - вектор параметров модели, обученной на обучающей выборке <span class="math notranslate nohighlight">\(C\)</span>;
+<br><br></p></li>
+<li><p><span class="math notranslate nohighlight">\(E\)</span> - значение внешнего критерия.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Выражение <span class="math notranslate nohighlight">\(||x||\)</span> означает норму вектора евклидова пространства и вычисляется по формуле</p>
+<div class="math notranslate nohighlight">
+\[||x||=\sqrt{\sum_{i=1}^nx_i^2}\]</div>
+</div>
+<section id="id4">
+<h3>1. Критерий регулярности<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Критерий регулярности относится к критериям точности и представляет собой среднеквадратичную ошибку.</p>
+<ul>
+<li><p>Несимметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.REGULARITY</span></code>):<br><br></p>
+  <!--$$
+  E=\sum_{i=1}^{N_B}(y_{Bi}-X_{Bi}\hat{w}_A)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||y_{B}-X_{B}\hat{w}_A||^2
+    \]</div>
+<p>Ошибка вычисляется для выборки <span class="math notranslate nohighlight">\(B\)</span> для модели, обученной на выборке <span class="math notranslate nohighlight">\(A\)</span>.
+<br><br></p>
+</li>
+<li><p>Симметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.SYM_REGULARITY</span></code>):<br><br></p>
+  <!--$$
+  E=\sum_{i=1}^{N_B}(y_{Bi}-X_{Bi}\hat{w}_A)^2 + \sum_{i=1}^{N_A}(y_{Ai}-X_{Ai}\hat{w}_B)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||y_{B}-X_{B}\hat{w}_A||^2+||y_{A}-X_{A}\hat{w}_B||^2
+    \]</div>
+<p>Используются сразу две модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span> и делает прогнозы на выборке <span class="math notranslate nohighlight">\(B\)</span>.
+Вторая модель, наоборот, обучается на выборке <span class="math notranslate nohighlight">\(B\)</span> и делает прогнозы на выборке <span class="math notranslate nohighlight">\(A\)</span>.
+Итоговый результат складывается из суммы среднеквадратичных ошибок двух моделей.</p>
+</li>
+</ul>
+</section>
+<section id="id5">
+<h3>2. Критерий стабильности<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Критерий стабильности относится к критериям точности и отличается от критерия регулярности тем, что оценивает точность модели не только на новых данных, но и на тех, на которых она обучалась.
+Благодаря этому оценка учитывает способности как аппроксимации, так и экстраполяции данных.</p>
+<ul>
+<li><p>Несимметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.STABILITY</span></code>):<br><br></p>
+  <!--$$
+  E=\sum_{i=1}^{N_C}(y_{Ci}-X_{Ci}\hat{w}_A)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||y_{C}-X_{C}\hat{w}_A||^2
+    \]</div>
+<p>Ошибка вычисляется для выборки <span class="math notranslate nohighlight">\(C\)</span> для модели, обученной на выборке <span class="math notranslate nohighlight">\(A\)</span>.
+<br><br></p>
+</li>
+<li><p>Симметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.SYM_STABILITY</span></code>):<br><br></p>
+  <!--$$
+  E=\sum_{i=1}^{N_C}(y_{Ci}-X_{Ci}\hat{w}_A)^2 + \sum_{i=1}^{N_C}(y_{Ci}-X_{Ci}\hat{w}_B)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||y_{C}-X_{C}\hat{w}_A||^2 + ||y_{C}-X_{C}\hat{w}_B||^2
+    \]</div>
+<p>Используются сразу две модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span> и делает прогнозы на выборке <span class="math notranslate nohighlight">\(C\)</span>.
+Вторая модель обучается на выборке <span class="math notranslate nohighlight">\(B\)</span> и делает прогнозы также на выборке <span class="math notranslate nohighlight">\(C\)</span>.
+Итоговый результат складывается из суммы среднеквадратичных ошибок двух моделей.</p>
+</li>
+</ul>
+</section>
+<section id="id6">
+<h3>3. Критерий минимума смещения коэффициентов<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Критерий минимума смещения коэффициентов относится к критериям согласованности и имеет только симметричную форму.
+Он основан на идее о том, что лучшей моделью является та, параметры которой практически не отличаются вне зависимости от данных, на которых модель обучалась.</p>
+<ul>
+<li><p>Симметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.UNBIASED_COEFFS</span></code>):<br><br></p>
+  <!--$$
+  E=(\hat{w}_A-\hat{w}_B)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||\hat{w}_A-\hat{w}_B||^2
+    \]</div>
+<p>Используются сразу две модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span>, другая - на выборке <span class="math notranslate nohighlight">\(B\)</span>.
+Чем более схожими получатся параметры моделей, тем меньше будет значение критерия.</p>
+</li>
+</ul>
+</section>
+<section id="id7">
+<h3>4. Критерий минимума смещения решений<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Критерий минимума смещения решений относится к критериям согласованности и является более распространённой формой критерия минимума смещения коэффициентов.
+Он оценивает то, насколько похожими будут прогнозы модели, обученной на двух разных выборках.</p>
+<ul>
+<li><p>Несимметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.UNBIASED_OUTPUTS</span></code>):<br><br></p>
+  <!--$$
+  E=(X_{Bi}\hat{w}_A-X_{Bi}\hat{w}_B)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||X_{B}\hat{w}_A-X_{B}\hat{w}_B||^2
+    \]</div>
+<p>Используются сразу две модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span> и строит прогнозы для выборки <span class="math notranslate nohighlight">\(B\)</span>.
+Вторая модель обучается на выборке <span class="math notranslate nohighlight">\(B\)</span> и строит прогнозы для выборки <span class="math notranslate nohighlight">\(B\)</span>.
+Чем более схожими получатся два этих прогноза, тем меньше будет значение критерия.
+<br><br></p>
+</li>
+<li><p>Симметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.SYM_UNBIASED_OUTPUTS</span></code>):<br><br></p>
+  <!--$$
+  E=(X_{Ci}\hat{w}_A-X_{Ci}\hat{w}_B)^2
+  $$-->
+<div class="math notranslate nohighlight">
+\[
+    E=||X_{C}\hat{w}_A-X_{C}\hat{w}_B||^2
+    \]</div>
+<p>Используются сразу две модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span> и строит прогнозы для выборки <span class="math notranslate nohighlight">\(C\)</span>.
+Вторая модель обучается на выборке <span class="math notranslate nohighlight">\(B\)</span> и строит прогнозы для выборки <span class="math notranslate nohighlight">\(C\)</span>.
+Чем более схожими получатся два этих прогноза, тем меньше будет значение критерия.</p>
+</li>
+</ul>
+</section>
+<section id="id8">
+<h3>5. Абсолютно помехоустойчивый критерий<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Абсолютно помехоустойчивый критерий требует максимальную согласованность прогнозов модели, раздельно обученной на трёх выборках. Данный критерий теоретически лучше остальных отсеивает избыточно сложные модели.</p>
+<ul>
+<li><p>Несимметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.ABSOLUTE_NOISE_IMMUNITY</span></code>):<br><br></p>
+<div class="math notranslate nohighlight">
+\[
+    E=(X_B\hat{w}_C-X_B\hat{w}_A)^T(X_B\hat{w}_B-X_B\hat{w}_C)
+    \]</div>
+<p>Используются сразу три модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span>, вторая - на выборке <span class="math notranslate nohighlight">\(B\)</span>, третья - на выборке <span class="math notranslate nohighlight">\(C\)</span>.
+Все модели строят прогнозы для выборки <span class="math notranslate nohighlight">\(B\)</span>. Чем более схожими будут прогнозы, тем меньше будет значение критерия.
+<br><br></p>
+</li>
+<li><p>Симметричная форма (<code class="docutils literal notranslate"><span class="pre">CriterionType.SYM_ABSOLUTE_NOISE_IMMUNITY</span></code>):<br><br></p>
+<div class="math notranslate nohighlight">
+\[
+    E=(X_C\hat{w}_C-X_C\hat{w}_A)^T(X_C\hat{w}_B-X_C\hat{w}_C)
+    \]</div>
+<p>Используются сразу три модели. Одна обучается на выборке <span class="math notranslate nohighlight">\(A\)</span>, вторая - на выборке <span class="math notranslate nohighlight">\(B\)</span>, третья - на выборке <span class="math notranslate nohighlight">\(C\)</span>.
+Все модели строят прогнозы для выборки <span class="math notranslate nohighlight">\(C\)</span>. Чем более схожими будут прогнозы, тем меньше будет значение критерия.</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="id9">
+<h2>Обзор комбинированных критериев<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<section id="parallelcriterion">
+<h3>1. Параллельный критерий (<code class="docutils literal notranslate"><span class="pre">ParallelCriterion</span></code>)<a class="headerlink" href="#parallelcriterion" title="Link to this heading">#</a></h3>
+<p>Параллельный критерий представляет собой взвешенную сумму значений двух независимо рассчитанных индивидуальных критериев и рассчитывается по формуле:</p>
+<div class="math notranslate nohighlight">
+\[
+E=\alpha E_1+(1-\alpha)E_2, \;\;\; \alpha \in [0,1],\]</div>
+<p>где <span class="math notranslate nohighlight">\(E_1\)</span> - значение первого индивидуального критерия,
+<span class="math notranslate nohighlight">\(E_2\)</span> - значение второго индивидуального  критерия,
+<span class="math notranslate nohighlight">\(\alpha\)</span> - весовой коэффициент.</p>
+</section>
+<section id="sequentialcriterion">
+<h3>2. Последовательный критерий (<code class="docutils literal notranslate"><span class="pre">SequentialCriterion</span></code>)<a class="headerlink" href="#sequentialcriterion" title="Link to this heading">#</a></h3>
+<p>Последовательный критерий также состоит из двух индивидуальных внешних критериев.
+Первый критерий применяется для всех моделей-кандидатов текущего ряда.
+Из них отбирается подмножество из <code class="docutils literal notranslate"><span class="pre">top</span></code> лучших моделей и для них рассчитывается второй индивидуальный критерий,
+по значению которого окончательно определяются лучшие модели.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="other_algorithms.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Другие алгоритмы</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="module_description.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Обзор модуля</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Классификация внешних критериев</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Обзор индивидуальных критериев</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1. Критерий регулярности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2. Критерий стабильности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3. Критерий минимума смещения коэффициентов</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4. Критерий минимума смещения решений</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">5. Абсолютно помехоустойчивый критерий</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Обзор комбинированных критериев</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelcriterion">1. Параллельный критерий (<code class="docutils literal notranslate"><span class="pre">ParallelCriterion</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequentialcriterion">2. Последовательный критерий (<code class="docutils literal notranslate"><span class="pre">SequentialCriterion</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By bauman-team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

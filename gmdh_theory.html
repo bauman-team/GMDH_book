@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Теория МГУА &#8212; GMDH book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gmdh_theory';</script>
+    <link rel="icon" href="_static/mylogo.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Разновидности алгоритмов МГУА" href="gmdh_algorithms.html" />
+    <link rel="prev" title="Первые шаги" href="get_started.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/mylogo.png" class="logo__image only-light" alt="GMDH book - Home"/>
+    <script>document.write(`<img src="_static/mylogo.png" class="logo__image only-dark" alt="GMDH book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Введение
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Первые шаги</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Теория МГУА</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="gmdh_algorithms.html">Разновидности алгоритмов МГУА</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="combi.html">COMBI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi.html">MULTI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mia.html">MIA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ria.html">RIA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_algorithms.html">Другие алгоритмы</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="criterions.html">Внешние критерии</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_description.html">Обзор модуля</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fgmdh_theory.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/gmdh_theory.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Теория МГУА</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Основные принципы</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1. Самоорганизация</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2. Способность избегать переобучения</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3. Применение критериев</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsamples">4. Разбиение данных на три подвыборки</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters">Гиперпараметры МГУА</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Обобщённый алгоритм обучения</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">МГУА и нейронные сети</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Теория МГУА<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>Метод группового учёта аргументов (МГУА) - это метод машинного обучения, разработанный в 1968 году советским академиком Алексеем Григорьевичем Ивахненко. МГУА стал одним из первых в истории алгоритмов глубокого обучения.</p>
+<section id="id2">
+<h2>Основные принципы<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3>1. Самоорганизация<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Большинство методов машинного обучения устроено так, что в процессе обучения алгоритмов просто подбираются численные параметры для определённой конкретной модели. Под <em>моделью</em> здесь подразумевается какая-либо функция, которая описывает зависимость целевой величины от входных данных.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>Например, в машинном обучении есть алгоритм линейной регрессии, который использует одну фиксированную модель вида</p>
+<div class="math notranslate nohighlight">
+\[
+y=w_0+\sum_{i=1}^nw_ix_i
+\]</div>
+<p>где <span class="math notranslate nohighlight">\(y\)</span> - целевая величина, <span class="math notranslate nohighlight">\((x_1, ...,x_n)\)</span> - вектор входных данных, <span class="math notranslate nohighlight">\((w_0,w_1,...,w_n)\)</span> - параметры модели. И задача в таком случае сводится лишь к подбору таких параметров модели, которые бы давали наиболее точные прогнозы значения <span class="math notranslate nohighlight">\(y\)</span>.</p>
+</div>
+<p>Главной же особенностью, на которой основан метод группового учёта аргументов, является <em>самоорганизация</em>. Данный принцип заключается в том, что в процессе обучения алгоритм не только подбирает численные параметры, но и самостоятельно определяет наиболее подходящую структуру модели. Вместо того, чтобы перед началом обучения ограничивать алгоритм одной моделью, МГУА задаёт целый класс моделей. Далее в процессе обучения из этого класса перебираются различные модели-кандидаты и среди них выбирается одна оптимальная. Возможности проверки сразу множества отличающихся своей структурой моделей и автоматического определения лучшей из них кардинально отличают МГУА от прочих методов машинного обучения.</p>
+</section>
+<section id="id4">
+<h3>2. Способность избегать переобучения<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Ещё одной принципиально важной характеристикой МГУА является его <em>способность избегать переобучения</em>. Переобучение - серьёзная проблема, с которой сталикаются многие алгоритмы машинного обучения. Суть её заключается в том, что модель может показывать отличные результаты на тренировочных данных, но при этом на тестовой выборке точность оказывается очень низкой. Обычно это происходит из-за чрезмерного усложнения модели. МГУА решает данную проблему благодаря особенному способу перебора моделей.</p>
+<p>На первой итерации выбираются и обучаются самые простые модели-кандидаты из заданного класса моделей. Затем на каждом следующем этапе сложность рассматриваемых моделей постепенно возрастает и этот процесс продолжается лишь до тех пор, пока точность результатов растёт. Итерации в МГУА называются <em>рядами</em>, и каждый ряд соответствует перебору моделей-кандидатов одинаковой сложности. Как только на очередном ряду обнаруживается, что качество моделей перестало улучшаться, процесс обучения тут же завершается. Обосновывается данный подход тем, что простые модели плохо отражают искомые закономерности, тогда как сложные модели чувствительны к шумам в данных. Таким образом, МГУА автоматически отдаёт предпочтение моделям с оптимальными точностью и сложностью, тем самым минимизируя вероятность переобучения.</p>
+</section>
+<section id="id5">
+<h3>3. Применение критериев<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Каким образом МГУА обучает модели-кандидаты и ищет среди них оптимальную? Для этих целей используются <em>внутренние и внешние критерии</em>. Внутренний критерий отвечает за подбор лучших числовых параметров в рамках одной модели. Роль внутреннего критерия выполняет метод наименьших квадратов (МНК), который основан на минимизации суммы квадратов отклонений некоторой функции от целевых данных. Другими словами, методами линейной алгебры подбираются такие параметры модели, при которых достигается минимально возможное значение функции среднеквадратичной ошибки (MSE)</p>
+<div class="math notranslate nohighlight">
+\[
+MSE=\frac{1}{n}\sum_{i=1}^n(y_i-\hat{y_i})^2
+\]</div>
+<p>где <span class="math notranslate nohighlight">\(y_i\)</span> - истинное значение <span class="math notranslate nohighlight">\(i\)</span>-й переменной, <span class="math notranslate nohighlight">\(\hat{y_i}\)</span> - предсказанное моделью значение <span class="math notranslate nohighlight">\(i\)</span>-й переменной, <span class="math notranslate nohighlight">\(n\)</span> - количество переменных.</p>
+<p>Внешний критерий представляет собой определённую формулу, которая использует данные о параметрах обученной модели и сделанных ею прогнозах на новых данных для вычисления количественной меры точности этой модели. Чем меньше значение внешнего критерия, тем лучше модель. Внешний критерий является гиперпараметром алгоритма и задаётся до этапа обучения. В главе <a class="reference internal" href="#../criterions.md"><span class="xref myst">Внешние критерии</span></a> представлена классификация и подробное описание различных внешних критериев.</p>
+</section>
+<section id="subsamples">
+<span id="id6"></span><h3>4. Разбиение данных на три подвыборки<a class="headerlink" href="#subsamples" title="Link to this heading">#</a></h3>
+<p>Важной концепцией алгоритма МГУА также является <em>разбиение данных на три подвыборки</em>. В отличие от классического принципа деления датасета на тренировочную и тестовую части, МГУА выделяет из исходных данных следующие компоненты:</p>
+<ul class="simple">
+<li><p>обучающая выборка:</p>
+<ul>
+<li><p>тренировочная часть;</p></li>
+<li><p>тестовая часть;</p></li>
+</ul>
+</li>
+<li><p>проверочная выборка.</p></li>
+</ul>
+<p>В процессе обучения участвуют сразу тренировочная и тестовая части. На тренировочной части данных применяется внутренний критерий и подбираются параметры моделей. На тестовой части данных происходит построение прогнозов и отбор лучших моделей по внешнему критерию. Проверочная часть применяется уже после окончания обучения и необходима для объективной оценки качества найденной оптимальной модели.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Некоторые внешние критерии подразумевают иное использование тренировочной и тестовой частей выборки. Подробнее об этом написано в разделе <a class="reference internal" href="#../criterions.md"><span class="xref myst">внешние критерии</span></a>.</p>
+</div>
+</section>
+</section>
+<section id="hyperparameters">
+<span id="id7"></span><h2>Гиперпараметры МГУА<a class="headerlink" href="#hyperparameters" title="Link to this heading">#</a></h2>
+<p>Гиперпараметры - это параметры алгоритма машинного обучения, настройка которых позволяет управлять процессом обучения. Гиперпараметры задаются вручную до этапа обучения.</p>
+<p>Общими гиперпараметрами алгоритмов МГУА являются:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../criterions.md"><span class="xref myst">внешний критерий</span></a> (<code class="docutils literal notranslate"><span class="pre">criterion</span></code>);</p></li>
+<li><p>доля тестовой части в обучающей выборке (<code class="docutils literal notranslate"><span class="pre">test_size</span></code>);</p></li>
+<li><p>количество лучших моделей ряда, на основе которых будет рассчитано качество всего ряда (<code class="docutils literal notranslate"><span class="pre">p_average</span></code>);</p></li>
+<li><p>минимально необходимое улучшение качества нового ряда для принятия решения о продолжении обучения (<code class="docutils literal notranslate"><span class="pre">limit</span></code>).</p></li>
+</ul>
+<p>Кроме того, некоторые алгоритмы имеют дополнительные гиперпараметры:</p>
+<ul class="simple">
+<li><p>количество лучших моделей, на основе которых будут формироваться усложнённые модели на следующем ряду (<code class="docutils literal notranslate"><span class="pre">k_best</span></code>);</p></li>
+<li><p><a class="reference internal" href="mia.html#polynomials"><span class="std std-ref">вид базовых полиномов</span></a>, из которых будут формироваться модели разного уровня сложности (<code class="docutils literal notranslate"><span class="pre">polynomial_type</span></code>).</p></li>
+</ul>
+<p>Гиперпараметры и их возможные значения подробно описаны в разделах с обзором конкретных алгоритмов МГУА.</p>
+</section>
+<section id="id8">
+<h2>Обобщённый алгоритм обучения<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Разделение обучающей выборки на тренировочную и тестовые части в соответствии с гиперпараметром <code class="docutils literal notranslate"><span class="pre">test_size</span></code>.</p></li>
+<li><p>Генерация моделей-кандидатов для текущего ряда.</p></li>
+<li><p>Расчёт параметров для всех моделей-кандидатов текущего ряда методом МНК.</p></li>
+<li><p>Оценка всех моделей-кандидатов текущего ряда по выбранному внешнему критерию <code class="docutils literal notranslate"><span class="pre">criterion</span></code>.</p></li>
+<li><p>Выбор <code class="docutils literal notranslate"><span class="pre">p_average</span></code> лучших моделей-кандидатов текущего ряда.</p></li>
+<li><p>Расчёт ошибки ряда как среднего значения внешних критериев лучших моделей текущего ряда.</p></li>
+<li><p>Если ошибка текущего ряда меньше ошибки предыдущего ряда более, чем на <code class="docutils literal notranslate"><span class="pre">limit</span></code>, или предыдущий ряд отсутствует, переход на ряд следующего уровня сложности моделей и возврат к пункту 2. Иначе лучшая модель текущего ряда принимается за модель оптимальной сложности и обучение останавливается.</p></li>
+</ol>
+<p>Далее при использовании обученного алгоритма все прогнозы будет совершаться одной оптимальной моделью.</p>
+</section>
+<section id="id9">
+<h2>МГУА и нейронные сети<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>Нейронные сети, как и МГУА, являются алгоритмами глубокого обучения. Они извлекают знания из входных наборов данных и аппроксимируют сложные закономерности, найденные в них. Однако подходы, заложенные в МГУА и нейронные сети, сильно отличаются. Описанные выше принципы работы МГУА частично устраняют некоторые распространённые проблемы, с которыми приходится сталкиваться при работе с нейронными сетями.</p>
+<p>Для настройки нейронной сети необходимо самостоятельно выбрать определённую архитектуру: число слоёв, количество нейронов, вид активационной функции и так далее. Все эти параметры каждый раз подбираются методом проб и ошибок с учётом знаний теории нейронных сетей и априорной информации об исследуемой предметной области. При этом всегда присутствует шанс, что модель может недообучиться или переобучиться. А при использовании метода группового учёта аргументов достаточно лишь ввыбрать подходящий алгоритм МГУА и указать соответствующий цели решаемой задачи внешний критерий. В процессе обучения алгоритм индуктивным методом сам подберёт подходящую внутреннюю структуру.</p>
+<p>Нейронная сеть для поиска оптимальных параметров модели использует численные методы. Например, метод обратного распространения ошибки. Это требует определённого времени на многократные пересчёты параметров, а результат обучения имеет зависимость от начальной инициализации параметров. Алгоритмы МГУА не нуждаются в случайной инициализации параметров, так как вычисляет параметры моделей аналитически, решая задачу наименьших квадратов с использованием, например, QR-разложения матрицы.</p>
+<p>Найденное нейронной сетью решение далеко не всегда является глобальным минимумом функции потерь, тогда как МГУА из заданного класса моделей-кандидатов всегда находит одну модель оптимальной сложности.</p>
+<p>Для качественного обучения нейросети обычно требуются большие наборы данных, в то время как МГУА способен подбирать оптимальные модели даже для экстремально коротких и зашумлённых выборок.</p>
+<p>Таким образом, метод группового учёта аргументов, имея ряд преимуществ над нейронными сетями, является эффективным и актуальным методом решения задач аппроксимации и прогнозирования. Но даже с учётом того, что МГУА берёт на себя задачу не только параметрической, но и структурной параметризации, максимум пользы от его использования можно получить, применяя наиболее подходящую для конкретной задачи разновидность алгоритма с настройкой соответствующих ей гиперпараметров.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="get_started.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Первые шаги</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="gmdh_algorithms.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Разновидности алгоритмов МГУА</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Основные принципы</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1. Самоорганизация</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2. Способность избегать переобучения</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3. Применение критериев</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsamples">4. Разбиение данных на три подвыборки</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters">Гиперпараметры МГУА</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Обобщённый алгоритм обучения</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">МГУА и нейронные сети</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By bauman-team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
